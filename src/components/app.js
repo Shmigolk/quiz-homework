@@ -7,15 +7,17 @@ import {nanoid} from "nanoid"
 export default function App(){
     const [quest, setQuest] = React.useState([])
     const [start, setStart] = React.useState(false)
-    const [check, setCheck] = React.useState(0)
+    const [count, setCount] = React.useState(0)
+    const [check, setCheck] = React.useState(false)
+
 
     React.useEffect(  () => {
         fetch("https://opentdb.com/api.php?amount=5")
             .then(res => res.json()).then(res => setQuest(res.results.map(item => {
             return {question: item.question, correct_answer: item.correct_answer,
                 options: shuffle([...item.incorrect_answers.map(answ => ({value: answ, id: nanoid(),
-                    select: false})), {value: item.correct_answer, id: nanoid(),
-                    select: true}]),
+                    select: false, corr: false})), {value: item.correct_answer, id: nanoid(),
+                    select: false, corr: true}]),
                 id: nanoid()}
         })))
     }, [])
@@ -35,14 +37,15 @@ export default function App(){
         quest.map(item => (
             item.options.map(option => {
                     if (option.select) {
-                        if (option.value === item.correct_answer) return setCheck(prev => prev += 1)
+                        if (option.value === item.correct_answer) return setCount(prev => prev += 1)
                     }
                 }
             )
         ))
+        setCheck(true)
     }
 
-    console.log(check)
+    console.log(count)
 
     let questions = quest.map(item => (
         <QuizComp
