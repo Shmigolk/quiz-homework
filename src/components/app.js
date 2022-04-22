@@ -50,6 +50,7 @@ export default function App(){
     function newGameClick(){
         setCheck(false)
         setNewGame(prev => !prev)
+        setCount(0)
     }
 
     console.log(count)
@@ -67,6 +68,8 @@ export default function App(){
                             styles = {backgroundColor: "#94D7A2"}} else{
                                 styles = {backgroundColor: "#F8BCBC"}
                             }
+                        } else if (!elem.select && elem.corr){
+                            styles = {backgroundColor: "#94D7A2"}
                         }
                             } else {styles = {backgroundColor: elem.select ? "#D6DBF5" : '#ffffff'}}
                     /*backgroundColor: elem.select ?  "#D6DBF5" : '#ffffff'*/
