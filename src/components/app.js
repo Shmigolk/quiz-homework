@@ -44,7 +44,7 @@ export default function App(){
             qustionContent={item.question}
             options={item.options.map(elem => {
                 const styles = {
-                    backgroundColor: elem.select ?  "#59E391" : '#ffffff'
+                    backgroundColor: elem.select ?  "#D6DBF5" : '#ffffff'
                 }
                 /*function selectClick(elem){
                     item.options = item.options.map( check => check.value === elem.value ?
