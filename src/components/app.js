@@ -53,8 +53,6 @@ export default function App(){
         setCount(0)
     }
 
-    console.log(count)
-
     let questions = quest.map(item => (
         <QuizComp
             key={item.id}
@@ -68,12 +66,11 @@ export default function App(){
                             styles = {backgroundColor: "#94D7A2"}} else{
                                 styles = {backgroundColor: "#F8BCBC"}
                             }
-                        } else if (!elem.select && elem.corr){
+                        } else if (elem.corr){
                             styles = {backgroundColor: "#94D7A2"}
                         }
                             } else {styles = {backgroundColor: elem.select ? "#D6DBF5" : '#ffffff'}}
-                    /*backgroundColor: elem.select ?  "#D6DBF5" : '#ffffff'*/
-                /*}*/
+
                 return (<div className="answer"
                              key={elem.id}
                              onClick={() => selectClick(item, elem)}

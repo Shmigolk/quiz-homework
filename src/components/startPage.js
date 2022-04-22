@@ -7,8 +7,7 @@ export default function StartPage(props){
         <h3>Just a description</h3>
         <button
             onClick={props.clickHandler}
-            className="btn"
-            Start quiz>
+            className="btn">
             Start the quiz
         </button>
     </div>
