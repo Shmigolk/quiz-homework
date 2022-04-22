@@ -7,7 +7,7 @@ import {nanoid} from "nanoid"
 export default function App(){
     const [quest, setQuest] = React.useState([])
     const [start, setStart] = React.useState(false)
-    /*const [ask, setAsk] = React.useState()*/
+    const [check, setCheck] = React.useState(false)
 
     React.useEffect(  () => {
         fetch("https://opentdb.com/api.php?amount=5")
@@ -20,6 +20,10 @@ export default function App(){
         })))
     }, [])
 
+    function clickHandler(){
+        setStart(prev => !prev)
+    }
+
     function selectClick(item, elem){
         setQuest(quest.map(
             quest => quest.question === item.question ? ({...item, options: item.options.map(
@@ -28,12 +32,16 @@ export default function App(){
         ))
     }
     function checkClick(){
-        console.log('check answers')
+        quest.map(item => (
+            item.options.map(option => {
+                    if (option.select) {
+                        if (option.value === item.correct_answer) return console.log('correct answer')
+                    }
+                }
+            )
+        ))
     }
 
-    function clickHandler(){
-        setStart(prev => !prev)
-    }
 
     let questions = quest.map(item => (
         <QuizComp
