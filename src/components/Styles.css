@@ -88,5 +88,9 @@ main {
     background: #D6DBF5;
 }
 
+span {
+    display: flex;
+    flex-direction: row;
+}
 
 

@@ -9,6 +9,7 @@ export default function App(){
     const [start, setStart] = React.useState(false)
     const [count, setCount] = React.useState(0)
     const [check, setCheck] = React.useState(false)
+    const [newGame, setNewGame] = React.useState(false)
 
 
     React.useEffect(  () => {
@@ -20,7 +21,8 @@ export default function App(){
                     select: false, corr: true}]),
                 id: nanoid()}
         })))
-    }, [])
+    }, [newGame])
+
 
     function clickHandler(){
         setStart(prev => !prev)
@@ -45,6 +47,11 @@ export default function App(){
         setCheck(true)
     }
 
+    function newGameClick(){
+        setCheck(false)
+        setNewGame(prev => !prev)
+    }
+
     console.log(count)
 
     let questions = quest.map(item => (
@@ -52,9 +59,18 @@ export default function App(){
             key={item.id}
             qustionContent={item.question}
             options={item.options.map(elem => {
-                const styles = {
-                    backgroundColor: elem.select ?  "#D6DBF5" : '#ffffff'
-                }
+                /*const styles = {*/
+                let styles
+                if (check){
+                        if (elem.select) {
+                            if (elem.corr){
+                            styles = {backgroundColor: "#94D7A2"}} else{
+                                styles = {backgroundColor: "#F8BCBC"}
+                            }
+                        }
+                            } else {styles = {backgroundColor: elem.select ? "#D6DBF5" : '#ffffff'}}
+                    /*backgroundColor: elem.select ?  "#D6DBF5" : '#ffffff'*/
+                /*}*/
                 return (<div className="answer"
                              key={elem.id}
                              onClick={() => selectClick(item, elem)}
@@ -68,11 +84,21 @@ export default function App(){
             {!start && <StartPage
                 clickHandler={clickHandler}/>}
             {start && questions}
-            {start && <button
+            {start && !check && <button
                 onClick={checkClick}
                 className="btn">
                 Check answers
             </button>}
+            {check && <span>
+                <h4>You scored {count}/{quest.length} correct answers</h4>
+                <button
+                className="btn"
+                onClick={newGameClick}
+            >
+                Play again
+            </button>
+                </span>
+            }
         </main>
     )}
 
