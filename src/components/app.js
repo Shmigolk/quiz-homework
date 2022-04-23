@@ -11,7 +11,6 @@ export default function App(){
     const [check, setCheck] = React.useState(false)
     const [newGame, setNewGame] = React.useState(false)
 
-
     React.useEffect(  () => {
         fetch("https://opentdb.com/api.php?amount=5")
             .then(res => res.json()).then(res => setQuest(res.results.map(item => {
@@ -22,7 +21,6 @@ export default function App(){
                 id: nanoid()}
         })))
     }, [newGame])
-
 
     function clickHandler(){
         setStart(prev => !prev)
@@ -58,7 +56,6 @@ export default function App(){
             key={item.id}
             qustionContent={item.question}
             options={item.options.map(elem => {
-                /*const styles = {*/
                 let styles
                 if (check){
                         if (elem.select) {
@@ -78,7 +75,6 @@ export default function App(){
                 >{elem.value}</div>)})}
         /> ))
 
-
     return (
         <main>
             {!start && <StartPage
@@ -94,11 +90,10 @@ export default function App(){
                 <button
                 className="btn"
                 onClick={newGameClick}
-            >
+                >
                 Play again
             </button>
-                </span>
-            }
+                </span>}
         </main>
     )}
 
@@ -108,4 +103,18 @@ function shuffle(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array
+}
+
+function chooseColor(elem, check){
+    let styles
+    if (check){
+        if (elem.select) {
+            if (elem.corr){
+                styles = {backgroundColor: "#94D7A2"}} else{
+                styles = {backgroundColor: "#F8BCBC"}
+            }
+        } else if (elem.corr){
+            styles = {backgroundColor: "#94D7A2"}
+        }
+    } else {styles = {backgroundColor: elem.select ? "#D6DBF5" : '#ffffff'}}
 }
