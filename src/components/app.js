@@ -105,16 +105,3 @@ function shuffle(array) {
     return array
 }
 
-function chooseColor(elem, check){
-    let styles
-    if (check){
-        if (elem.select) {
-            if (elem.corr){
-                styles = {backgroundColor: "#94D7A2"}} else{
-                styles = {backgroundColor: "#F8BCBC"}
-            }
-        } else if (elem.corr){
-            styles = {backgroundColor: "#94D7A2"}
-        }
-    } else {styles = {backgroundColor: elem.select ? "#D6DBF5" : '#ffffff'}}
-}
