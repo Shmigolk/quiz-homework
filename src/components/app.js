@@ -52,17 +52,7 @@ export default function App(){
             key={item.id}
             qustionContent={item.question}
             options={item.options.map(elem => {
-                let styles
-                if (check){
-                        if (elem.select) {
-                            if (elem.corr){
-                            styles = {backgroundColor: "#94D7A2"}} else{
-                                styles = {backgroundColor: "#F8BCBC"}
-                            }
-                        } else if (elem.corr){
-                            styles = {backgroundColor: "#94D7A2"}
-                        }
-                            } else {styles = {backgroundColor: elem.select ? "#D6DBF5" : '#ffffff'}}
+                let styles = chooseColor(elem, check)
 
                 return (<div className="answer"
                              key={elem.id}
@@ -111,4 +101,15 @@ function getRequiredStructure(res) {
     })
 }
 
-
+function chooseColor(elem, check) {
+    if (check){
+        if (elem.select) {
+            if (elem.corr){
+                return  {backgroundColor: "#94D7A2"}} else{
+                return  {backgroundColor: "#F8BCBC"}
+            }
+        } else if (elem.corr){
+            return  {backgroundColor: "#94D7A2"}
+        }
+    } else { return  {backgroundColor: elem.select ? "#D6DBF5" : '#ffffff'}}
+}
