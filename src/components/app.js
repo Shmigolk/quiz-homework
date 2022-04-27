@@ -13,13 +13,8 @@ export default function App(){
 
     React.useEffect(  () => {
         fetch("https://opentdb.com/api.php?amount=5")
-            .then(res => res.json()).then(res => setQuest(res.results.map(item => {
-            return {question: item.question, correct_answer: item.correct_answer,
-                options: shuffle([...item.incorrect_answers.map(answ => ({value: answ, id: nanoid(),
-                    select: false, corr: false})), {value: item.correct_answer, id: nanoid(),
-                    select: false, corr: true}]),
-                id: nanoid()}
-        })))
+            .then(res => res.json())
+            .then(res => setQuest(getRequiredStructure(res)))
     }, [newGame])
 
     function clickHandler(){
@@ -33,6 +28,7 @@ export default function App(){
                 )}) : quest
         ))
     }
+
     function checkClick(){
         quest.map(item => (
             item.options.map(option => {
@@ -85,7 +81,7 @@ export default function App(){
                 className="btn">
                 Check answers
             </button>}
-            {check && <span>
+            {check && <div className="container">
                 <h4>You scored {count}/{quest.length} correct answers</h4>
                 <button
                 className="btn"
@@ -93,7 +89,7 @@ export default function App(){
                 >
                 Play again
             </button>
-                </span>}
+                </div>}
         </main>
     )}
 
@@ -104,4 +100,15 @@ function shuffle(array) {
     }
     return array
 }
+
+function getRequiredStructure(res) {
+    return res.results.map(item => {
+        return {question: item.question, correct_answer: item.correct_answer,
+            options: shuffle([...item.incorrect_answers.map(answ => ({value: answ, id: nanoid(),
+                select: false, corr: false})), {value: item.correct_answer, id: nanoid(),
+                select: false, corr: true}]),
+            id: nanoid()}
+    })
+}
+
 
